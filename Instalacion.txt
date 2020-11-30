@@ -1,0 +1,52 @@
+				Instalación desde 0
+
+1) Descargar Python (se recomienda usar anaconda y no actualizar): 
+https://repo.anaconda.com/archive/Anaconda3-2020.02-Windows-x86.exe
+
+2) Instalar anaconda usando configuración recomendada
+
+3) Instalar modulos Python:
+Abra la consola (anaconda pront), copie y ejecute los siguientes codigos uno a la vez.
+Le preguntará si desea realizar modificaciones. Aprete la telca "y" luego enter para instalar.
+
+conda install -c r rpy2  // conda install -c conda-forge rpy2
+conda install -c conda-forge tzlocal
+conda install -c conda-forge pysimplegui
+
+
+4) Instalar librerias R:
+Abra Spyder (interfaz para usar python), luego copie y ejecute todas las linesas de codigo que estan a continuación
+
+import rpy2.robjects.packages as rpackages
+from rpy2.robjects.vectors import StrVector
+utils = rpackages.importr('utils')
+base = rpackages.importr('base')
+utils.chooseCRANmirror(ind=0) 
+packnames = ('lpSolveAPI','gamlss.util','gamlss.dist','RcmdrMisc','e1071',
+             'glarma','Rcmdr','forecast','effects','foreign','gamlss',
+             'gamlss.data','car','carData','base','zoo','MASS','nlme',
+             'sandwich','readxl')
+names_to_install = [x for x in packnames if not rpackages.isinstalled(x)]
+if len(names_to_install) > 0:
+	utils.install_packages(StrVector(names_to_install))
+
+5) Verifique que se instalaron todos los paquetes, para esto vuelva a ejecutar las lineas de codigo del paso 4.
+Revise el objeto "names_to_install", contendrá los nombres de las librerías que no fueron instaladas. (Por alguna
+razón no se instalan todas, lo normal es que falte la librería "foreign") Para instalar librerias faltantes: 
+
+Abra la consola (anaconda pront), copie y ejecute el siguiente codigo. Le preguntará si desea realizar modificaciones.
+Aprete la telca "y" luego enter para instalar.
+
+conda install -c conda-forge r-foreign
+
+6) Con esto ya tiene todo instalado para usar la interfaz de usuario y sus funcionalidades. Si por alguna razón no 
+se instalaron todas las librerias de R, deberá buscarlas en google como: "conda install #nombre_libreria" 
+
+7) Descargue y extraiga o copie los 4 archivos que se detallan acontinuación en una misma carpeta
+capa_gui.py
+funciones.py 
+ls_ists.r 
+prog_est_2
+
+8) Para ejecutar el programa, abrá Spyder y busque el archivo llamado "capa_gui". El uso de esta aplicación esta detallado
+en el archivo de texto "Instrucciones de uso".
